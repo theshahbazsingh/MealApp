@@ -11,10 +11,9 @@ export const CategoryList: React.FC<CategoryListProps> = ({categories}: Category
         <>
             <div className="grid xl:grid-cols-2 sm:grid-cols-1 gap-12">
                 {categories && categories.map((category, index) => (
-                    <>
-                    <Link href={`/category/${category.strCategory}`} passHref>
+                    <Link href={`/category/${category.strCategory}`} passHref key={index}>
                         <a>
-                            <div className='flex p-8 mb gap-8 relative cursor-pointer hover:-translate-y-1 hover:scale-104 duration-200 bg-white shadow-md hover:shadow-lg' key={index}>
+                            <div className='flex p-8 mb gap-8 relative cursor-pointer hover:-translate-y-1 hover:scale-104 duration-200 bg-white shadow-md hover:shadow-lg'>
                                 <div className='flex-1'>
                                     <Image className="object-scale-down h-48 w-96" src={category.strCategoryThumb} layout='responsive' width="300" height="200" alt={category.strCategory} objectFit="cover" />
                                 </div>
@@ -25,7 +24,6 @@ export const CategoryList: React.FC<CategoryListProps> = ({categories}: Category
                             </div>
                         </a>
                     </Link>
-                    </>
                 ))}
             </div>
         </>

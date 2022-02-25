@@ -8,8 +8,7 @@ interface MealProps {
 export const Meal:React.FC<MealProps> = ({ meal }: MealProps) => {
 
   const steps = meal?.strInstructions.split("\r\n")
-    console.log(steps)
-
+  
   return (
     <>
       <div className='grid gap-12 xl:grid-cols-2 lg:grid-cols-1'>
