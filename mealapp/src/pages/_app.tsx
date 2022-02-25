@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 
 import 'nprogress/nprogress.css';
 import '../styles/nprogress.css';
+
 import { Router } from 'next/router';
 import nProgress from 'nprogress';
 
