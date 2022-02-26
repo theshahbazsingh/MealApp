@@ -6,6 +6,7 @@ import '../styles/globals.css'
 import 'nprogress/nprogress.css';
 import '../styles/nprogress.css';
 
+// Show nProgress bar at top
 Router.events.on('routeChangeStart', () => nProgress.start());
 Router.events.on('routeChangeComplete', () => nProgress.done());
 Router.events.on('routeChangeError', () => nProgress.done());

@@ -1,25 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import axios from "axios";
+import axios from 'axios'
+import Head from 'next/head'
 
-import { Loader } from '../components/UI/other/Loader';
+import { Loader } from '../components/ui/other/Loader'
+import { PageHeading } from '../components/ui/typography/PageHeading'
+import { RenderCategories } from '../components/pages/RenderCategories'
 
-import { TCategoriesData, TCategoriesResponse } from "../types/Categories";
-import { RenderCategories } from '../components/CategoriesPage/RenderCategories';
+import { TCategoriesData, TCategoriesResponse } from '../types/Categories'
 
 const CategoriesPage: NextPage = () => {
   
-  const [categories, setCategories] = useState<Array<TCategoriesData>>([]);
+  const [categoriesData, setCategoriesData] = useState<Array<TCategoriesData>>([]);
   const [isLoading, setIsLoading] = useState<Boolean>(true);
   const [isError, setIsError] = useState<Boolean>(false);
 
+  // get a list of all categories
   useEffect(() => {
     async function getCategories() {
       setIsLoading(true);
       await axios.request<TCategoriesResponse>({
           url: 'https://www.themealdb.com/api/json/v1/1/categories.php',
         }).then((response: any) => {
-          setCategories(response.data.categories);
+          // store categories object from response into State
+          setCategoriesData(response.data.categories);
       }).catch((e: Error) => {
           console.log(e);
           setIsError(true)
@@ -34,11 +38,20 @@ const CategoriesPage: NextPage = () => {
     return  <Loader />
   }
 
-  if (isError || !categories) {
+  // check if axios returned erros or empty categories state
+  if (isError || !categoriesData) {
     return <div>Error</div>
   }
 
-  return <RenderCategories Categories={categories} />
+  return (
+    <>
+      <Head>
+        <title>MealApp | You hungry?</title>
+      </Head>
+      <PageHeading text="Select a category to view recipies :)" />
+      <RenderCategories Categories={categoriesData} />
+    </>
+  )
   
 }
 

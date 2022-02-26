@@ -1,9 +1,9 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
-import { Footer } from '../components/UI/sections/Footer';
-import { Header } from '../components/UI/sections/Header';
-import { MainContainer } from '../components/UI/sections/MainContainer';
+import { Footer } from '../components/ui/sections/Footer';
+import { Header } from '../components/ui/sections/Header';
+import { MainContainer } from '../components/ui/sections/MainContainer';
 
 const LANGUAGES = ['fr', 'en'];
 
@@ -16,7 +16,8 @@ class MyDocument extends Document {
 
     return (
       <Html lang={lang}>
-        <Head />
+        <Head>
+        </Head>
         <body className="bg-green-50 p-8">
           <Header />
           <MainContainer>

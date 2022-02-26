@@ -2,7 +2,7 @@
 
 The MealApp is a web application that has amazing recipies you can follow to cook your own meals!
 
-The following tech stack was used in creating this awesome app.
+## Tech Stack
 
 - **React.js** - My favourite library for front-end
 - **Next.js** - Used this here as a personal preference; helps with dynamic routing & images
@@ -13,6 +13,12 @@ The following tech stack was used in creating this awesome app.
 - **PostCSS** - It came with TailwindCSS, however it's capabilities are not being used yet
 - **Sharp** - Helps increase web performance by optimizing images which this application heavily relies on
 - **Prettier** - Well, it makes code pretty
+
+## Folder Structure
+
+- Any reusable **Types** have been stored in the `/types/` folder & follow this naming convention: /types/<PageName>.tsx
+- All reusable UI Components have been stored in the `/components/ui/` folder
+- To increase code readability, all pages rendering logic has been stored as components in the `/components/pages/` folder & follow follow this naming convention `/Render<PageName>.tsx`
 
 # Running the Application
 
@@ -73,8 +79,6 @@ The application so far has been written with best practices for React. The appli
 - Showing Ingredients & other information on the Meal page
 - The API data is not clean, I could have written logic for extracting intructions from all types of data. See below: <img width="762" alt="Screen Shot 2022-02-26 at 9 17 50 PM" src="https://user-images.githubusercontent.com/53837292/155849535-f75de586-9d92-4896-aecc-408d7029629b.png">
 - Writing better logic for extracting excerpts i.e. not finishing on spaces or extracting only sentences; need to think more about this<img width="517" alt="Screen Shot 2022-02-26 at 9 20 06 PM" src="https://user-images.githubusercontent.com/53837292/155849596-5e43abca-0896-49b0-9dfd-625b012916c9.png">
-- More specific Error Handling i.e. 404 Error, Server Timeout, Category not found, Meal not found etc.
 - More thorough type & component testing using **Zest**, **React-Testing-Library**
-- Using Object-Specific <title> tags for each page
 
 - Just doing a much better job since **good things take more time & effort**
