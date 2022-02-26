@@ -32,8 +32,13 @@ So far, there are two types of components in the application
 - All pages are stored in the `/pages/` folder and has subfolders that correspond to a particular functionality (eg `category`, `meal`) which is scalable
 
 # Running the Application
+  
+First, change current directory to `mealapp`
+```bash
+cd mealapp
+```
 
-First, install all dependancies
+Then, install all dependancies
 
 ```bash
 yarn install
