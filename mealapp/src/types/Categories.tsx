@@ -1,10 +1,10 @@
-export interface ICatListData {
+export type TCategoriesData = {
     idCategory: number
     strCategory: string
     strCategoryThumb: string
     strCategoryDescription: string
 }
 
-export interface ICatListResponse {
-    data: ICatListData
+export type TCategoriesResponse = {
+    data: TCategoriesData
 }

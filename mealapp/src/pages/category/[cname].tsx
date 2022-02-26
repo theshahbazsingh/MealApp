@@ -3,26 +3,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from 'next/router'
 
-import { RenderCategory } from '../../components/CategoryPage/RenderCategory'
+import { RenderMealsByCategory } from '../../components/MealsByCategoryPage/RenderMealsByCategory'
 import { Loader } from '../../components/UI/Loader';
-import { Header } from '../../components/UI/Header'
 import { PageHeading } from '../../components/UI/PageHeading';
-import { Footer } from '../../components/UI/Footer'
 
-import { ICategoryData, ICategoryResponse } from "../../interfaces/Category";
+import { TMealsByCategoryData, TMealsByCategoryResponse } from "../../types/MealsByCategory";
 
 const CategoryPage: NextPage = () => {
 
   const router = useRouter()
   const { cname } = router.query
 
-  const [meals, setMeals] = useState<Array<ICategoryData>>([]);
+  const [meals, setMeals] = useState<Array<TMealsByCategoryData>>([]);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
   useEffect(() => {
     async function getCategories() {
       setIsLoading(true);
-      await axios.request<ICategoryResponse>({
+      await axios.request<TMealsByCategoryResponse>({
           url: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + cname,
         }).then((response: any) => {
           setMeals(response.data.meals);
@@ -36,20 +34,14 @@ const CategoryPage: NextPage = () => {
   }, [cname])
 
   return (
-    <div className="bg-green-50 p-6">
-      <Header />
-      <main className="md:w-3/4 mx-auto">
-        <div className="w-full mb-5 rounded-lg">
-          { isLoading ? <Loader /> : (
-            <>
-              <PageHeading text={'Category: ' + cname} />
-              <RenderCategory Meals={meals} />
-            </>
-          )}
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <>
+      { isLoading ? <Loader /> : (
+        <>
+          <PageHeading text={'Category: ' + cname} />
+          <RenderMealsByCategory Meals={meals} />
+        </>
+      )}
+    </>
   )
 }
 
