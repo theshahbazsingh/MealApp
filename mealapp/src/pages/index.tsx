@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import type { NextPage } from 'next'
 import axios from "axios";
 
-import { Loader } from '../components/UI/Loader';
+import { Loader } from '../components/UI/other/Loader';
 
 import { TCategoriesData, TCategoriesResponse } from "../types/Categories";
 import { RenderCategories } from '../components/CategoriesPage/RenderCategories';
 
-const HomePage: NextPage = () => {
+const CategoriesPage: NextPage = () => {
   
   const [categories, setCategories] = useState<Array<TCategoriesData>>([]);
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [isError, setIsError] = useState<Boolean>(false);
 
   useEffect(() => {
     async function getCategories() {
@@ -19,20 +20,26 @@ const HomePage: NextPage = () => {
           url: 'https://www.themealdb.com/api/json/v1/1/categories.php',
         }).then((response: any) => {
           setCategories(response.data.categories);
-          setIsLoading(false);
-      })
-        .catch((e: Error) => {
+      }).catch((e: Error) => {
           console.log(e);
+          setIsError(true)
+      }).finally(()=> {
+          setIsLoading(false);
       });
     };
     getCategories()
   }, [])
 
-  return (
-    <>
-      { isLoading ? <Loader /> : <RenderCategories Categories={categories} /> }
-    </>
-  )
+  if (isLoading) {
+    return  <Loader />
+  }
+
+  if (isError || !categories) {
+    return <div>Error</div>
+  }
+
+  return <RenderCategories Categories={categories} />
+  
 }
 
-export default HomePage
+export default CategoriesPage

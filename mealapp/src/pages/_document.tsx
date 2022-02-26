@@ -1,9 +1,9 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import React from 'react';
 
-import { Footer } from '../components/UI/Footer';
-import { Header } from '../components/UI/Header';
-import { MainContainer } from '../components/UI/MainContainer';
+import { Footer } from '../components/UI/sections/Footer';
+import { Header } from '../components/UI/sections/Header';
+import { MainContainer } from '../components/UI/sections/MainContainer';
 
 const LANGUAGES = ['fr', 'en'];
 

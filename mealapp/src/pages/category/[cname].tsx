@@ -4,45 +4,46 @@ import axios from "axios";
 import { useRouter } from 'next/router'
 
 import { RenderMealsByCategory } from '../../components/MealsByCategoryPage/RenderMealsByCategory'
-import { Loader } from '../../components/UI/Loader';
-import { PageHeading } from '../../components/UI/PageHeading';
+import { Loader } from '../../components/UI/other/Loader';
 
 import { TMealsByCategoryData, TMealsByCategoryResponse } from "../../types/MealsByCategory";
 
-const CategoryPage: NextPage = () => {
+const MealsByCategoryPage: NextPage = () => {
 
   const router = useRouter()
   const { cname } = router.query
 
   const [meals, setMeals] = useState<Array<TMealsByCategoryData>>([]);
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [isError, setIsError] = useState<Boolean>(false);
 
   useEffect(() => {
-    async function getCategories() {
+    const getCategories = async () => {
       setIsLoading(true);
       await axios.request<TMealsByCategoryResponse>({
           url: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + cname,
         }).then((response: any) => {
           setMeals(response.data.meals);
-          setIsLoading(false);
-      })
-        .catch((e: Error) => {
+      }).catch((e: Error) => {
           console.log(e);
+          setIsError(true)
+      }).finally(()=> {
+        setIsLoading(false);
       });
     };
     getCategories()
   }, [cname])
 
-  return (
-    <>
-      { isLoading ? <Loader /> : (
-        <>
-          <PageHeading text={'Category: ' + cname} />
-          <RenderMealsByCategory Meals={meals} />
-        </>
-      )}
-    </>
-  )
+  if (isLoading) {
+    return  <Loader />
+  }
+
+  if (isError || !cname) {
+    return <div>Error</div>
+  }
+
+  return <RenderMealsByCategory category={cname.toString()} Meals={meals} />
+
 }
 
-export default CategoryPage
+export default MealsByCategoryPage

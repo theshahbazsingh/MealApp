@@ -1,7 +1,7 @@
 import { TCategoriesData } from "../../types/Categories";
 
-import { CategoryCard } from "../UI/CategoryCard";
-import { PageHeading } from "../UI/PageHeading";
+import { CategoryCard } from "../UI/cards/CategoryCard";
+import { PageHeading } from "../UI/typography/PageHeading";
 
 type RenderCategoriesProps = {
     /** An array of Category objects */

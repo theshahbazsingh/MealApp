@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import { RenderMeal } from '../../components/MealPage/RenderMeal'
-import { Loader } from '../../components/UI/Loader'
+import { Loader } from '../../components/UI/other/Loader'
 
 import { TMealData, TMealResponse } from '../../types/Meal'
 
 const MealPage: NextPage = () => {
 
     const [meal, setMeal] = useState<TMealData>();
-    const [isLoading, setIsLoading] = useState<Boolean>(false);
+    const [isLoading, setIsLoading] = useState<Boolean>(true);
+    const [isError, setIsError] = useState<Boolean>(false);
 
     const router = useRouter()
     const { mId } = router.query
@@ -23,24 +24,26 @@ const MealPage: NextPage = () => {
             url: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + mId,
           }).then((response: any) => {
             setMeal(response.data.meals[0]);
-            setIsLoading(false);
-        })
-          .catch((e: Error) => {
+        }).catch((e: Error) => {
             console.log("Error:" + e);
+            setIsError(true)
+        }).finally(()=> {
+          setIsLoading(false);
         });
       };
       getMeal()
     }, [mId])
 
-  return (
-    <>
-      { isLoading ? <Loader /> : (
-        <>
-          { meal && ( <RenderMeal Meal={meal} /> )}
-        </>
-      )}
-    </>
-  )
+    if (isLoading) {
+      return  <Loader />
+    }
+  
+    if (isError || !meal) {
+      return <div>Error</div>
+    }
+
+    return <RenderMeal Meal={meal} />
+
 }
 
 export default MealPage
