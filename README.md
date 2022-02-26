@@ -14,11 +14,22 @@ The MealApp is a web application that has amazing recipies you can follow to coo
 - **Sharp** - Helps increase web performance by optimizing images which this application heavily relies on
 - **Prettier** - Well, it makes code pretty
 
+## Component Design Decisions
+
+All components have been designed to retrieve and validate props with `TypeScript` if applicable.
+
+All components have variable names that follow a easily-readble naming pattern to make them `self-commenting`. Comments are also provided where the logic is complex.
+
+So far, there are two types of components in the application
+- UI components which can easily be reused. These components do only one job and they do it well. Examples include `PageHeading`, `YTEmbed`, `MealCard` etc. Props are placed in the same file as the component as the application logic is not complex yet.
+- Page components which store logic of a particular page. This has been done to increase code readability, however, this approach can be re-thought in the future.
+
 ## Folder Structure
 
-- Any reusable **Types** have been stored in the `/types/` folder & follow this naming convention: /types/<PageName>.tsx
+- Any reusable `Types` have been stored in the `/types/` folder & follow this naming convention: /types/<PageName>.tsx
 - All reusable UI Components have been stored in the `/components/ui/` folder
-- To increase code readability, all pages rendering logic has been stored as components in the `/components/pages/` folder & follow follow this naming convention `/Render<PageName>.tsx`
+- To increase code readability, `render` logic of Pages has been stored as components in the `/components/pages/` folder & follow follow this naming convention `/Render<PageName>.tsx`
+- All pages are stored in the `/pages/` folder and has subfolders that correspond to a particular functionality (eg `category`, `meal`) which is scalable
 
 # Running the Application
 
@@ -84,6 +95,7 @@ The application so far has been written with best practices for React. The appli
 
 # Compromises made due to Time Constraints
 - Showing Ingredients & other information on the Meal page
+- Make more reusable components from the Meal page i.e. reusable lists & sections
 - The API data is not clean, I could have written logic for extracting intructions from all types of data. See below: <img width="500" alt="Screen Shot 2022-02-26 at 9 17 50 PM" src="https://user-images.githubusercontent.com/53837292/155849535-f75de586-9d92-4896-aecc-408d7029629b.png">
 - Writing better logic for extracting excerpts i.e. not finishing on spaces or extracting only sentences; need to think more about this<img width="517" alt="Screen Shot 2022-02-26 at 9 20 06 PM" src="https://user-images.githubusercontent.com/53837292/155849596-5e43abca-0896-49b0-9dfd-625b012916c9.png">
 - More thorough type & component testing using **Zest**, **React-Testing-Library**
