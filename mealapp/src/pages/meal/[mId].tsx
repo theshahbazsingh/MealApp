@@ -1,33 +1,35 @@
 import type { NextPage } from 'next'
-import { Footer } from '../../components/UI/Footer'
-import { Header } from '../../components/UI/Header'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { IMealData, IMealResponse } from '../../interfaces/Meal'
-import { Meal } from '../../components/MealPage/Meal'
+
+import { RenderMeal } from '../../components/MealPage/RenderMeal'
 import { Loader } from '../../components/UI/Loader'
+import { Header } from '../../components/UI/Header'
 import { PageHeading } from '../../components/UI/PageHeading'
+import { Footer } from '../../components/UI/Footer'
+
+import { IMealData, IMealResponse } from '../../interfaces/Meal'
 
 const MealPage: NextPage = () => {
 
     const [meal, setMeal] = useState<IMealData>();
-    const [loading, setLoading] = useState<Boolean>(false);
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     const router = useRouter()
     const { mId } = router.query
 
     useEffect(() => {
       async function getMeal() {
-        setLoading(true);
+        setIsLoading(true);
         await axios.request<IMealResponse>({
             url: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + mId,
           }).then((response: any) => {
             setMeal(response.data.meals[0]);
-            setLoading(false);
+            setIsLoading(false);
         })
           .catch((e: Error) => {
-            console.log(e);
+            console.log("Error:" + e);
         });
       };
       getMeal()
@@ -38,10 +40,15 @@ const MealPage: NextPage = () => {
       <Header />
       <main className="md:w-3/4 mx-auto">
         <div className="w-full mb-5">
-            { loading ? <Loader /> : (
+            { isLoading ? <Loader /> : (
               <>
-                <PageHeading text={"Our recipie for " + meal?.strMeal} />
-                { meal && <Meal meal={meal} /> }
+                { meal && (
+                <>
+                  <PageHeading text={'Our recipie for ' + meal.strMeal} />
+                  <RenderMeal Meal={meal} /> 
+                </>
+                )
+                }
               </>
             )}
         </div>

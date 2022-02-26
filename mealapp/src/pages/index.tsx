@@ -1,26 +1,28 @@
+import { useEffect, useState } from 'react';
 import type { NextPage } from 'next'
-import { CategoryList } from '../components/CategoriesListPage/CategoryList'
-import { Footer } from '../components/UI/Footer'
+import axios from "axios";
+
+import { RenderCategoryList } from '../components/ListCategoriesPage/RenderListCategories'
+import { Loader } from '../components/UI/Loader';
 import { Header } from '../components/UI/Header'
 import { PageHeading } from '../components/UI/PageHeading'
-import { useEffect, useState } from 'react';
-import axios from "axios";
-import { ICatListData, ICatListResponse } from "../interfaces/CategoriesList";
-import { Loader } from '../components/UI/Loader';
+import { Footer } from '../components/UI/Footer'
+
+import { ICatListData, ICatListResponse } from "../interfaces/ListCategories";
 
 const HomePage: NextPage = () => {
   
   const [categories, setCategories] = useState<Array<ICatListData>>([]);
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
 
   useEffect(() => {
     async function getCategories() {
-      setLoading(true);
+      setIsLoading(true);
       await axios.request<ICatListResponse>({
           url: 'https://www.themealdb.com/api/json/v1/1/categories.php',
         }).then((response: any) => {
           setCategories(response.data.categories);
-          setLoading(false);
+          setIsLoading(false);
       })
         .catch((e: Error) => {
           console.log(e);
@@ -34,10 +36,10 @@ const HomePage: NextPage = () => {
       <Header />
       <main className="md:w-3/4 mx-auto">
         <div className="w-full mb-5 rounded-lg">
-          { loading ? <Loader /> : (
+          { isLoading ? <Loader /> : (
             <>
               <PageHeading text="Select a category to view recipies :)" />
-              <CategoryList categories={categories} />
+              <RenderCategoryList Categories={categories} />
             </>
           )}
         </div>

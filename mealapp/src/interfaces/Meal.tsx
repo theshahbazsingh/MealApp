@@ -3,6 +3,7 @@ export interface IMealData {
     strMeal: string
     strMealThumb: string
     strInstructions: string
+    strYoutube?: string
 }
 
 export interface IMealResponse {
