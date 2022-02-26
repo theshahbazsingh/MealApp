@@ -41,14 +41,20 @@ yarn build
 
 # Testing the Implementation
 
-## Props Test
+## Mobile Test
+The application is responsive and has been manually tested to run on mobile devices on a mobile phone along with automated testing using Chrome Dev Tools.
+<img width="292" alt="Screen Shot 2022-02-26 at 9 57 43 PM" src="https://user-images.githubusercontent.com/53837292/155850880-f653a61d-8e91-419d-a5fb-29780f8f7879.png">
+
+## Type-Checking & Validation
+The app has been tested for type errors using TypeScript & ESLint. Further testing can be done using other React Testing tools like Jest.
 
 ## Accesibility Test
-I used 
+The app has been tested for accessibility with WAVE chrome plugin & Chrome Lighthouse. WAVE showed no errors or serious warnings and Chrome Lighthouse showed an accessibility score of 
+The application can also correctly use Tab sequences for navigation with a keyboard.
 <img width="963" alt="Screen Shot 2022-02-26 at 9 31 16 PM" src="https://user-images.githubusercontent.com/53837292/155850015-58157ed7-08d5-406b-8a46-c3046d371058.png">
 
-
 ## Performance Testing
+The application so far has been written with best practices for React. The application scored a Performance score of 97 in Chrome Lighthouse.
 
 # What would I do if this app was destined for Production?
 
@@ -60,6 +66,7 @@ I used
 - Use SEO best practices like using <meta> tags
 - More thorough testing using **Zest**, **React-Testing-Library**
 - More rigrous accessibility testing with different plugins since some have different algorithms
+- Increase performance by using cache, webpack etc.
 - Working on the compromises below:
 
 # Compromises made due to Time Constraints
@@ -68,4 +75,6 @@ I used
 - Writing better logic for extracting excerpts i.e. not finishing on spaces or extracting only sentences; need to think more about this<img width="517" alt="Screen Shot 2022-02-26 at 9 20 06 PM" src="https://user-images.githubusercontent.com/53837292/155849596-5e43abca-0896-49b0-9dfd-625b012916c9.png">
 - More specific Error Handling i.e. 404 Error, Server Timeout, Category not found, Meal not found etc.
 - More thorough type & component testing using **Zest**, **React-Testing-Library**
-- Just doing a much better job since good things take more time & effort
+- Using Object-Specific <title> tags for each page
+
+- Just doing a much better job since **good things take more time & effort**
