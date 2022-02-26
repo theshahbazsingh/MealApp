@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
 import { Footer } from '../components/UI/sections/Footer';
@@ -15,7 +15,7 @@ class MyDocument extends Document {
       LANGUAGES.indexOf(pathPrefix) !== -1 ? pathPrefix : LANGUAGES[0];
 
     return (
-      <html lang={lang}>
+      <Html lang={lang}>
         <Head />
         <body className="bg-green-50 p-8">
           <Header />
@@ -25,7 +25,7 @@ class MyDocument extends Document {
           <NextScript />
           <Footer />
         </body>
-      </html>
+      </Html>
     );
   }
 }
