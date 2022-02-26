@@ -28,7 +28,7 @@ export const RenderMeal:React.FC<MealProps> = ({ Meal }: MealProps) => {
 
                     <Image src={strMealThumb} layout="responsive" width="400" height="400" objectFit="cover" alt={'A Photo of ' + strMeal} />
 
-                    <div className="grid gap-6 grid-cols-3">
+                    <div className="grid gap-6 grid-cols-3 mt-8">
                         {/** Only show specific tags if values are provided */}
                         { strArea && ( 
                             <div>

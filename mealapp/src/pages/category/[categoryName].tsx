@@ -22,23 +22,27 @@ const MealsByCategoryPage: NextPage = () => {
 
   useEffect(() => {
 
-    setIsLoading(true);
+    if (categoryName) {
 
-    const getCategories = async () => {
-        await axios.request<TMealsByCategoryResponse>({
-            url: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + categoryName,
-        }).then((response: any) => {
-            // store all meals objects from response into State
-            setMealsData(response.data.meals);
-        }).catch((e: Error) => {
-            console.log(e);
-            setIsError(true)
-        }).finally(()=> {
-            setIsLoading(false);
-        });
-    };
+      setIsLoading(true);
 
-    getCategories();
+      const getCategories = async () => {
+          await axios.request<TMealsByCategoryResponse>({
+              url: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + categoryName,
+          }).then((response: any) => {
+              // store all meals objects from response into State
+              setMealsData(response.data.meals);
+          }).catch((e: Error) => {
+              console.log(e);
+              setIsError(true)
+          }).finally(()=> {
+              setIsLoading(false);
+          });
+      };
+
+      getCategories();
+
+    }
 
   }, [categoryName])
 

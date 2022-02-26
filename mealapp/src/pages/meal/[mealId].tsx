@@ -23,13 +23,15 @@ const MealPage: NextPage = () => {
     // get details of the Meal from API
     useEffect(() => {
 
+      if (mealId) {
+        
         setIsLoading(true);
 
-        async function getMeal() {
+        const getMeal = async () => {
             await axios.request<TMealResponse>({
                     url: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + mealId,
                 }).then((response: any) => {
-                    // store only first (and last) meals object from response into State
+                    // store meals object from response into State
                     setMealData(response.data.meals[0]);
                 }).catch((e: Error) => {
                     console.log("Error:" + e)
@@ -41,6 +43,8 @@ const MealPage: NextPage = () => {
 
         getMeal();
 
+      }
+
     }, [mealId])
 
     if (isLoading) {
@@ -48,7 +52,7 @@ const MealPage: NextPage = () => {
     }
 
     // check if axios returned erros or empty meals state
-    if (isError || !mealData) {
+    if (isError || !mealData || !mealId) {
       return <div>Error</div>
     }
 
